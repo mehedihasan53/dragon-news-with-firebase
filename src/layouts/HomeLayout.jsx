@@ -8,28 +8,40 @@ import LeftAside from "../components/homeLayout/LeftAside";
 
 const HomeLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
+      {/* Header Section */}
       <header className="left-header">
-        <Header></Header>
+        <Header />
         <section className="w-11/12 mx-auto my-3">
-          <LatestNews></LatestNews>
+          <LatestNews />
         </section>
         <nav className="w-11/12 mx-auto my-3">
-          <Navbar></Navbar>
+          <Navbar />
         </nav>
       </header>
-      <main className="w-11/12 mx-auto grid grid-cols-12 my-3">
-        <aside className="col-span-3">
-          <LeftAside></LeftAside>
+
+      {/* Mobile Categories (visible only on small screens) */}
+      <div className="block md:hidden w-11/12 mx-auto mb-4">
+        <LeftAside />
+      </div>
+
+      {/* Main Grid */}
+      <main className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 my-4">
+        {/* Left Sidebar (desktop only) */}
+        <aside className="hidden md:block md:col-span-3">
+          <LeftAside />
         </aside>
-        <section className="col-span-6">
-          <Outlet></Outlet>
+
+        {/* Main Content */}
+        <section className="col-span-1 md:col-span-6 order-1 md:order-none">
+          <Outlet />
         </section>
-        <aside className="col-span-3">
-          <RightAside></RightAside>
+
+        {/* Right Sidebar */}
+        <aside className="col-span-1 md:col-span-3 order-2 md:order-none mt-4 md:mt-0">
+          <RightAside />
         </aside>
       </main>
-      <section className="right-nev"></section>
     </div>
   );
 };
