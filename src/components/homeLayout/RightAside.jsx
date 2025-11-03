@@ -7,7 +7,11 @@ import BgImg from "./BgImg";
 const RightAside = () => {
   return (
     <div>
-      <div className="w-full bg-base-100  rounded-xl  p-2 sm:p-5">
+      <div
+        className="w-full bg-base-100  
+       md:w-auto px-3 md:px-0
+      "
+      >
         <SocialLogin />
         <FindUs />
         <QZone />

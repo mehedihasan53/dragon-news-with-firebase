@@ -20,15 +20,15 @@ const HomeLayout = () => {
         </nav>
       </header>
 
-      {/* Mobile Categories (visible only on small screens) */}
+      {/* Mobile Categories */}
       <div className="block md:hidden w-11/12 mx-auto mb-4">
         <LeftAside />
       </div>
 
       {/* Main Grid */}
       <main className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 my-4">
-        {/* Left Sidebar (desktop only) */}
-        <aside className="hidden md:block md:col-span-3">
+        {/* Left Sidebar */}
+        <aside className="hidden md:block md:col-span-3 sticky top-0 h-fit">
           <LeftAside />
         </aside>
 
@@ -38,7 +38,7 @@ const HomeLayout = () => {
         </section>
 
         {/* Right Sidebar */}
-        <aside className="col-span-1 md:col-span-3 order-2 md:order-none mt-4 md:mt-0">
+        <aside className="col-span-1 md:col-span-3 order-2 md:order-none mt-4 md:mt-0 sticky top-0 h-fit">
           <RightAside />
         </aside>
       </main>
