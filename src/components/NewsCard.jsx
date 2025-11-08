@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { FaRegBookmark, FaRegEye, FaShareAlt, FaStar } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, author, thumbnail_url, rating, total_view, details } = news;
+  const { id, title, author, thumbnail_url, rating, total_view, details } =
+    news;
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -43,27 +45,20 @@ const NewsCard = ({ news }) => {
       </figure>
 
       {/* Description */}
-      <div className="px-4 py-2 text-sm text-gray-700">
-        {isExpanded ? (
-          <p>
-            {details}{" "}
-            <span
-              onClick={() => setIsExpanded(false)}
-              className="text-orange-500 font-medium cursor-pointer"
-            >
-              Show Less
-            </span>
-          </p>
-        ) : (
+
+      <div className="px-4 text-accent">
+        {details.length > 200 ? (
           <p>
             {details.slice(0, 200)}...
-            <span
-              onClick={() => setIsExpanded(true)}
+            <Link
+              to={`/news-details/${id}`}
               className="font-medium cursor-pointer text-orange-500"
             >
               Read More
-            </span>
+            </Link>
           </p>
+        ) : (
+          <p>{details}</p>
         )}
       </div>
 
