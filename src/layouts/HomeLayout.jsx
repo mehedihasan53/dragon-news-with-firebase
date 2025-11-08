@@ -1,12 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
 import Navbar from "../components/Navbar";
 import RightAside from "../components/homeLayout/RightAside";
 import LeftAside from "../components/homeLayout/LeftAside";
+import Loading from "../components/Loading";
 
 const HomeLayout = () => {
+  const { state } = useNavigate();
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header Section */}
@@ -34,7 +36,7 @@ const HomeLayout = () => {
 
         {/* Main Content */}
         <section className="col-span-1 md:col-span-6 order-1 md:order-none">
-          <Outlet />
+          {state == "loading" ? <Loading /> : <Outlet />}
         </section>
 
         {/* Right Sidebar */}

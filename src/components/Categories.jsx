@@ -1,9 +1,16 @@
+// components/Categories.jsx
 import React, { use } from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 
-const categoryPromise = fetch("categories.json").then((response) =>
-  response.json()
-);
+const categoryPromise = fetch("/categories.json")
+  .then((res) => {
+    if (!res.ok) throw new Error("Failed to fetch categories");
+    return res.json();
+  })
+  .catch((err) => {
+    console.error(err);
+    return [];
+  });
 
 const Categories = () => {
   const categories = use(categoryPromise);
@@ -18,7 +25,7 @@ const Categories = () => {
         {categories.map((c) => (
           <NavLink
             key={c.id}
-            to={`category/${c.id}`}
+            to={`/category/${c.id}`}
             className={({ isActive }) =>
               `btn border-0 w-full font-semibold text-accent text-sm sm:text-base ${
                 isActive ? "bg-primary text-white" : "bg-base-100"

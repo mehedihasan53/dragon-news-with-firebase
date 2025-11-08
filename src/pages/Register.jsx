@@ -1,20 +1,22 @@
 import React, { useState, use } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
   const { createUser, setUser, updateUser } = use(AuthContext);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); // ✅ success state add
+  const novation = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
     setError("");
+    setSuccess(""); // every submit reset
 
     const name = e.target.name.value;
     const photoURL = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log({ name, photoURL, email, password });
 
     if (password.length < 6) {
       setError("Password should be at least 6 characters.");
@@ -24,16 +26,17 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
+
         updateUser({ displayName: name, photoURL: photoURL })
           .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photoURL });
+            setUser({ ...user, displayName: name, photoURL });
+            novation("/");
+            setSuccess("Registration successful! ✅"); // ✅ success message
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
             setUser(user);
+            setSuccess("Registration successful! ✅");
           });
-
-        console.log("User created:", result.user);
       })
       .catch((err) => setError(err.message));
   };
@@ -46,10 +49,17 @@ const Register = () => {
             Register your account
           </h1>
 
-          {/* Error message UI */}
+          {/* Error message */}
           {error && (
             <div className="bg-red-100 text-red-600 p-3 rounded text-sm mb-4">
               {error}
+            </div>
+          )}
+
+          {/* Success message ✅ */}
+          {success && (
+            <div className="bg-green-100 text-green-600 p-3 rounded text-sm mb-4">
+              {success}
             </div>
           )}
 

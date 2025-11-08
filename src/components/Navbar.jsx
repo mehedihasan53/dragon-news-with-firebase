@@ -6,10 +6,10 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
   const handleLogOut = () => {
-    console.log("handle logout");
+    // console.log("handle logout");
     logOut()
       .then(() => {
-        console.log("user log out");
+        // console.log("user log out");
       })
       .catch((error) => console.log(error));
   };
@@ -22,7 +22,11 @@ const Navbar = () => {
         <NavLink to={"/career"}>Career</NavLink>
       </div>
       <div className="right-nav flex gap-2">
-        <img src={`${user ? user.photoURL : userIcon}`} alt="" />
+        <img
+          className="w-12 rounded-full"
+          src={`${user ? user.photoURL : userIcon}`}
+          alt=""
+        />
 
         {user ? (
           <button onClick={handleLogOut} className="btn btn-primary px-10">
